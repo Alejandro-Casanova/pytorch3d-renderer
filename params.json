@@ -1,8 +1,10 @@
 {
-"image_size": 1024,
-"camera_dist": 10,   
-"elevation": [0, 90, 180],
-"azim_angle": [0, 60, 90, 180, 270],
-"obj_filename": "data/rooster/rooster_1.0.1_copy.obj",
-"z_coord": 0     
+"image_size": [480, 480],
+"camera_dist": 250,   
+"znear": 0.01,
+"zfar": 2000,
+"fov": 30,
+"elevation": 180,
+"azim_angle": 0,
+"obj_filename": "data/sphere/sphere.ply"
 }

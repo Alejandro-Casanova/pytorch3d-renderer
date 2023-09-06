@@ -1,0 +1,11 @@
+{
+"image_size": [630, 480],
+"camera_dist": 650,   
+"znear": 0.01,
+"zfar": 2000,
+"fov": 30,
+"elevation": [180],
+"azim_angle": [0],
+"obj_filename": "data/sphere/sphere.ply",
+"z_coord": 1    
+}
