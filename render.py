@@ -54,7 +54,8 @@ else:
     device = torch.device("cpu")
 
 # Import parameters
-params = Params("params.json")
+params = Params("params_paper_zgt2.json")
+# params = Params("params_paper.json")
 obj_filename = params.obj_filename
 
 
@@ -78,19 +79,24 @@ def get_mesh(obj_filename, device):
         verts, faces, aux = load_obj(
             obj_filename,
             device=device,
-            load_textures=True,
-            create_texture_atlas=True,
-            texture_atlas_size=4,
-            texture_wrap="repeat"
+            # load_textures=True,
+            # create_texture_atlas=True,
+            # texture_atlas_size=4,
+            # texture_wrap="repeat"
             )
 
         # Create a textures object
-        atlas = aux.texture_atlas
+        # atlas = aux.texture_atlas
+
+        white_texture = torch.ones_like(verts)  # White color
+        textures = TexturesVertex(verts_features=[white_texture])
+
         # Create Meshes object
         mesh = Meshes(
             verts=[verts],
             faces=[faces.verts_idx],
-            textures=TexturesAtlas(atlas=[atlas]),) 
+            textures=textures #TexturesAtlas(atlas=[atlas]),
+        ) 
         
     elif ext == '.ply':
         verts, faces = load_ply(obj_filename)
@@ -141,6 +147,7 @@ def init_rasterizer(image_size: int = 512,
         image_size=image_size,
         blur_radius=0.0,
         faces_per_pixel=1,
+        bin_size=0
     )
     # Initialize rasterizer by using a MeshRasterizer class
     rasterizer = MeshRasterizer(
@@ -233,7 +240,8 @@ def main():
     random.seed(42)
 
     light_directions = [[random.uniform(-1.0, 1.0), random.uniform(-1.0, 1.0), random.uniform(-1.0, -0.5)] for i in range(20)]
-    
+    light_directions = [[0, 1, -1]]
+
     # print(light_directions[0])
     for i, l in enumerate(light_directions):
         light_directions[i] = l / np.sqrt(np.sum([i ** 2 for i in l]))

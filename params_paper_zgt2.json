@@ -1,0 +1,10 @@
+{
+"image_size": [2000, 4500],
+"camera_dist": 4,   
+"znear": 0.001,
+"zfar": 500,
+"fov": 30,
+"elevation": 180,
+"azim_angle": 60,
+"obj_filename": "data/paper_examples/thai/thai_z_out_mudepth5e-10_muboundary1e-2.obj"
+}

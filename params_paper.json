@@ -1,0 +1,10 @@
+{
+"image_size": [2000, 4000],
+"camera_dist": 700,   
+"znear": 0.01,
+"zfar": 10000,
+"fov": 30,
+"elevation": 180,
+"azim_angle": 60,
+"obj_filename": "data/paper_examples/thai/thai_z_gt.obj"
+}
