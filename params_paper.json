@@ -1,10 +1,10 @@
 {
-"image_size": [2000, 4000],
-"camera_dist": 700,   
+"image_size": [1000, 4000],
+"camera_dist": 5,   
 "znear": 0.01,
-"zfar": 10000,
+"zfar": 3000,
 "fov": 30,
 "elevation": 180,
-"azim_angle": 60,
-"obj_filename": "data/paper_examples/thai/thai_z_gt.obj"
+"azim_angle": 90,
+"obj_filename": "data/paper_examples/real/real_tabletcase_zout2.obj"
 }

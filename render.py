@@ -55,7 +55,7 @@ else:
 
 # Import parameters
 params = Params("params_paper_zgt2.json")
-# params = Params("params_paper.json")
+params = Params("params_paper.json")
 obj_filename = params.obj_filename
 
 
@@ -142,7 +142,8 @@ def init_rasterizer(image_size: int = 512,
     # Initialize the camera with camera distance, elevation, azimuth angle,
     # and image size
     R, T = look_at_view_transform(dist=dist, elev=elev, azim=azim)
-    cameras = FoVPerspectiveCameras(device=device, R=R, T=T, znear=znear, zfar=zfar, fov=fov)
+    # cameras = FoVPerspectiveCameras(device=device, R=R, T=T, znear=znear, zfar=zfar, fov=fov)
+    cameras = FoVOrthographicCameras(device=device, R=R, T=T, znear=znear, zfar=zfar)
     raster_settings = RasterizationSettings(
         image_size=image_size,
         blur_radius=0.0,
@@ -190,9 +191,9 @@ def get_renderer(rasterizer: MeshRasterizer,
     # )
 
     lights = DirectionalLights(device=device, 
-                               ambient_color=((0.2, 0.2, 0.2), ),
+                               ambient_color=((0.1, 0.1, 0.1), ),
                                diffuse_color=((0.5, 0.5, 0.5), ),
-                               specular_color=((0.3, 0.3, 0.3), ),
+                               specular_color=((0.2, 0.2, 0.2), ),
                                direction=(light_dir,)) if light_dir is not None else None
     
     # The textured phong shader interpolates the texture uv coordinates for
@@ -221,7 +222,14 @@ def render_image(renderer, mesh, obj_filename, index):
     Returns:
         renderer: MeshRenderer class
     """
+
+    # def normalize_2d(matrix):
+    #     norm = np.linalg.norm(matrix)
+    #     matrix = matrix/norm  # normalized matrix
+    #     return matrix
+
     image = renderer(mesh)
+    # image = normalize_2d(image.cpu()).to(device)
 
     out = os.path.normpath(obj_filename).split(os.path.sep)
     mesh_filename = out[-1].split(".")[0]
@@ -240,7 +248,7 @@ def main():
     random.seed(42)
 
     light_directions = [[random.uniform(-1.0, 1.0), random.uniform(-1.0, 1.0), random.uniform(-1.0, -0.5)] for i in range(20)]
-    light_directions = [[0, 1, -1]]
+    light_directions = [[0, 0, -1]]
 
     # print(light_directions[0])
     for i, l in enumerate(light_directions):
